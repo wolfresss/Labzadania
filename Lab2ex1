@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5kat</title>
+</head>
+<body>
+    <canvas id="canvas" width="400" height="400"></canvas>
+    <script>
+        const canvas = document.getElementById("canvas");
+        const ctx = canvas.getContext("2d");
+        
+        function drawPentagon() {
+            const centerX = 200, centerY = 200, size = 100;
+            ctx.beginPath();
+            for (let i = 0; i < 5; i++) {
+                const angle = (Math.PI / 180) * (i * 72 - 90);
+                const x = centerX + size * Math.cos(angle);
+                const y = centerY + size * Math.sin(angle);
+                ctx.lineTo(x, y);
+            }
+            ctx.closePath();
+            ctx.fillStyle = "blue";
+            ctx.fill();
+            ctx.stroke();
+        }
+        
+        function drawEyes() {
+            ctx.fillStyle = "white";
+            ctx.beginPath();
+            ctx.arc(175, 175, 11, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.arc(225, 175, 11, 0, Math.PI * 2);
+            ctx.fill();
+
+
+            ctx.fillStyle = "black";
+            ctx.beginPath();
+            ctx.arc(175, 175, 6, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.arc(225, 175, 6, 0, Math.PI * 2);
+            ctx.fill();
+
+
+            ctx.fillStyle="white";
+            ctx.beginPath();
+            ctx.arc(173,174,2,0,Math.PI*2)
+            ctx.fill();
+
+            
+            ctx.beginPath();
+            ctx.arc(223,174,2,0,Math.PI*2)
+            ctx.fill();
+            
+        }
+        
+        function drawSmile() {
+          
+            ctx.fillStyle = "black";
+            ctx.beginPath();
+            ctx.arc(200, 220, 20, 0, Math.PI, false);
+            ctx.fill();
+
+
+            ctx.fillStyle = "black";
+            ctx.beginPath();
+            ctx.moveTo(213, 235);//1start
+            ctx.lineTo(221, 217);//2 kaciki ust
+            ctx.lineTo(215, 220);//3top
+            ctx.closePath();
+            ctx.fill();
+
+
+            ctx.beginPath();
+            ctx.moveTo(187, 236);//1start
+            ctx.lineTo(180, 217);//2 kaciki ust
+            ctx.lineTo(188, 220);//3top
+            ctx.closePath();
+            ctx.fill();
+
+            ctx.strokeStyle = "black";
+            ctx.beginPath();
+            ctx.arc(178, 217, 3, 2, 1.5*Math.PI, Math.PI / 2, false);
+            ctx.stroke();
+            
+            ctx.beginPath();
+            ctx.arc(223, 217, 3, 4.5, 0.5*Math.PI/ 2, Math.PI/2, false);
+            ctx.stroke();
+            
+            ctx.fillStyle = "white";
+            ctx.fillRect(192, 220, 8, 8);
+            ctx.fillRect(201, 220, 8, 8);
+        }
+
+
+
+       
+        
+        drawPentagon();
+        drawEyes();
+       
+        drawSmile();
+    </script>
+</body>
+</html>

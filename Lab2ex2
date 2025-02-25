@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab2 Ex2</title>
+    <style>
+        canvas {
+            border: 4px solid black;
+        }
+    </style>
+</head>
+<body>
+    <h1>lab_ex2_canvas</h1>
+    <canvas id="canvas" width="500" height="500"></canvas><br>
+
+    <label for="colorSelect">Wybierz kolor:</label>
+    <select id="colorSelect">
+        <option value="black">Czarny</option>
+        <option value="red">Czerwony</option>
+        <option value="blue">Niebieski</option>
+        <option value="purple">Fioletowy</option>
+        <option value="turquoise">Turkusowy</option>
+        
+    </select><br><br>
+
+    <label for="shapeSelect">Wybierz kształt:</label>
+    <select id="shapeSelect">
+        <option value="square">Kwadrat</option>
+        <option value="rectangle">Prostokąt</option>
+        <option value="decagon">Dziesięciokąt</option>
+        <option value="pentagon">Pięciokąt</option>
+
+    </select><br><br>
+
+    <button id="clearButton">Clear</button>
+
+
+
+<script>
+
+    // Inicjalizacja zmiennych _/
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
+    let currentColor = "black";
+    let currentShape = "square";
+    
+    // Czyszczenia canvasu _/
+    function doClear() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+    
+    // Funkcja do rysowania różnymi figurami _/
+    function drawShape(event) {
+        const rect = canvas.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+    
+        ctx.fillStyle = currentColor;
+    
+        if (currentShape === "square") {
+            ctx.fillRect(x - 25, y - 25, 50, 50); // Rysowanie kwadratu -/
+        } else if (currentShape === "rectangle") {
+            ctx.fillRect(x - 30, y - 20, 60, 40); // Rysowanie prostokąta_/
+        } else if (currentShape === "decagon") {
+            drawDecagon(x, y); // Rysowanie dziesięciokąta_/
+        }
+        else if (currentShape === "pentagon") {
+        drawPentagon(x, y); // Rysowanie pięciokąta_/
+         }
+    }
+    
+    
+    function drawDecagon(x, y) {
+    const radius = 30; // Promień okręgu na którym jest osadzony dziesięciokąt_/
+    const angle = 2 * Math.PI / 10; // Kąt pomiędzy kolejnymi wierzchołkami 10-kąta_/
+    ctx.beginPath();
+    for (let i = 0; i < 10; i++) {
+        const xOffset = x + radius * Math.cos(i * angle);
+        const yOffset = y + radius * Math.sin(i * angle);
+        if (i === 0) {
+            ctx.moveTo(xOffset, yOffset);
+        } else {
+            ctx.lineTo(xOffset, yOffset);
+        }
+    }
+    ctx.closePath();
+    ctx.fill();
+}
+
+function drawPentagon(x, y) {
+    const radius = 30; // Promień okręgu na którym jest osadzony pięciokąt_/
+    const angle = 2 * Math.PI / 5; // Kąt pomiędzy kolejnymi wierzchołkami 5-kąta X
+
+    ctx.beginPath();
+    for (let i = 0; i < 5; i++) {
+        const xOffset = x + radius * Math.cos(i * angle);
+        const yOffset = y + radius * Math.sin(i * angle);
+        if (i === 0) {
+            ctx.moveTo(xOffset, yOffset);
+        } else {
+            ctx.lineTo(xOffset, yOffset);
+        }
+    }
+    ctx.closePath();
+    ctx.fill();
+}
+
+    // TU do zmiany koloru funkcja_/
+    function changeColor() {
+        const colorSelect = document.getElementById("colorSelect");
+        currentColor = colorSelect.value;
+    }
+    
+    //TU funkcja do zmiany rysowanego kształtu_/
+    function changeShape() {
+        const shapeSelect = document.getElementById("shapeSelect");
+        currentShape = shapeSelect.value;
+    }
+    
+    // Obsługa do zdarzen_/
+    document.getElementById("clearButton").onclick = doClear;
+    document.getElementById("colorSelect").onchange = changeColor;
+    document.getElementById("shapeSelect").onchange = changeShape;
+    
+    // Rysowanie na canvasie_/
+    canvas.addEventListener("mousemove", drawShape);
+
+
+
+</script>
+  
+    
+</body>
+</html>
